@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="neuramind — A modern, accessible quiz application (Version 1)." />
+  <title>neuramind — Quiz App (v1)</title>
+
+  <!-- Link to the stylesheet (place neuramind-v1.css alongside this HTML) -->
+  <link rel="stylesheet" href="neuramind-v1.css">
+</head>
+<body>
+  <header id="app-header" class="app-header" role="banner">
+    <h1 id="app-title" class="app-title">neuramind</h1>
+    <p id="app-tagline" class="app-tagline">Sharpen your mind with quick, focused quizzes.</p>
+  </header>
+
+  <main id="main" class="app-main" role="main">
+    <!-- Welcome Screen -->
+    <section id="welcome-screen" class="screen welcome-screen" aria-labelledby="welcome-heading">
+      <header class="screen-header">
+        <figure class="logo" id="logo-placeholder" aria-hidden="false">
+          <img src="" alt="neuramind logo placeholder" id="logo-img" class="logo-img" />
+          <figcaption class="visually-hidden">neuramind logo</figcaption>
+        </figure>
+        <h2 id="welcome-heading" class="screen-title">Welcome to neuramind</h2>
+        <p id="welcome-desc" class="screen-description">Choose your preferences and start a short quiz to test your knowledge.</p>
+      </header>
+
+      <form id="setup-form" class="setup-form" aria-describedby="setup-help">
+        <p id="setup-help" class="form-help">Enter your name and pick difficulty and question count before starting.</p>
+
+        <div class="form-group">
+          <label for="player-name" class="form-label">Player name</label>
+          <input id="player-name" class="form-control" name="playerName" type="text" placeholder="Your name" required aria-required="true" aria-describedby="player-name-help" />
+          <small id="player-name-help" class="form-hint">This name will appear on the results screen.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="difficulty-select" class="form-label">Difficulty</label>
+          <select id="difficulty-select" class="form-control" name="difficulty" aria-label="Select difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="question-count-select" class="form-label">Number of questions</label>
+          <select id="question-count-select" class="form-control" name="questionCount" aria-label="Select number of questions">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="15">15</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button id="start-quiz-btn" class="btn btn-primary" type="submit" aria-controls="quiz-screen">Start Quiz</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section id="quiz-screen" class="screen quiz-screen" aria-labelledby="quiz-heading" aria-hidden="true" hidden>
+      <header class="quiz-header" id="quiz-header" role="region" aria-labelledby="quiz-heading">
+        <h2 id="quiz-heading" class="screen-title">Quiz</h2>
+
+        <div class="quiz-meta" role="status" aria-live="polite" aria-atomic="true">
+          <p id="current-score" class="score">Score: <span id="score-value">0</span></p>
+          <p id="question-number" class="question-number">Question: <span id="current-question">0</span> / <span id="total-questions">0</span></p>
+        </div>
+
+        <div class="progress" id="progress-container" aria-labelledby="progress-label">
+          <label id="progress-label" for="quiz-progress" class="visually-hidden">Quiz progress</label>
+          <progress id="quiz-progress" class="progress-bar" value="0" max="100" aria-valuemin="0" aria-valuemax="100">0%</progress>
+        </div>
+      </header>
+
+      <article id="question-card" class="question-card" role="group" aria-labelledby="question-text" aria-describedby="question-instructions">
+        <h3 id="question-text" class="question-text">Question text will appear here</h3>
+        <p id="question-instructions" class="question-instructions">Select the best answer from the options below.</p>
+
+        <ul id="answers-list" class="answers-list" role="list" aria-label="Answer choices">
+          <li class="answer-item">
+            <button id="answer-1" class="answer-btn" type="button" aria-pressed="false">Answer option 1</button>
+          </li>
+          <li class="answer-item">
+            <button id="answer-2" class="answer-btn" type="button" aria-pressed="false">Answer option 2</button>
+          </li>
+          <li class="answer-item">
+            <button id="answer-3" class="answer-btn" type="button" aria-pressed="false">Answer option 3</button>
+          </li>
+          <li class="answer-item">
+            <button id="answer-4" class="answer-btn" type="button" aria-pressed="false">Answer option 4</button>
+          </li>
+        </ul>
+
+        <nav id="quiz-navigation" class="quiz-navigation" role="navigation" aria-label="Quiz navigation">
+          <button id="prev-btn" class="btn btn-secondary" type="button" disabled aria-disabled="true">Previous</button>
+          <button id="next-btn" class="btn btn-secondary" type="button">Next</button>
+        </nav>
+      </article>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results-screen" class="screen results-screen" aria-labelledby="results-heading" aria-hidden="true" hidden>
+      <header class="screen-header">
+        <h2 id="results-heading" class="screen-title">Results</h2>
+        <p id="results-subtitle" class="screen-subtitle">Well done — here's how you did.</p>
+      </header>
+
+      <section id="player-summary" class="player-summary" aria-labelledby="player-name-result">
+        <h3 id="player-name-result" class="player-name-result">Player: <span id="result-player-name">—</span></h3>
+
+        <dl id="score-summary" class="score-summary" aria-describedby="score-explainer">
+          <dt>Final score</dt>
+          <dd id="final-score">0</dd>
+
+          <dt>Percentage</dt>
+          <dd id="percentage">0%</dd>
+
+          <dt>Grade</dt>
+          <dd id="grade">N/A</dd>
+
+          <dt>Correct answers</dt>
+          <dd id="correct-answers">0</dd>
+
+          <dt>Wrong answers</dt>
+          <dd id="wrong-answers">0</dd>
+        </dl>
+
+        <p id="score-explainer" class="visually-hidden">Final results for the completed quiz.</p>
+      </section>
+
+      <div class="results-actions" role="group" aria-label="Results actions">
+        <button id="play-again-btn" class="btn btn-primary" type="button">Play Again</button>
+        <button id="back-home-btn" class="btn btn-secondary" type="button" aria-controls="welcome-screen">Back Home</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="app-footer" class="app-footer" role="contentinfo">
+    <small>&copy; <span id="footer-year">2026</span> neuramind</small>
+  </footer>
+
+  <!-- Main app script (module imports questions.js and results.js) -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
